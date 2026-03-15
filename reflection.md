@@ -17,10 +17,11 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-I used Copilot initially and then Claude on this project.
+I used Copilot and Claude on this project.
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-
+The AI suggested to change the backward hint messages like changing  "Too High", "📈 Go HIGHER!" to "Too High", "📉 Go LOWER!" inside the check_guess function and I verified the result by generating tests in tests/test_game_logic.py in agent mode.
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I had an error running pytest after creating tests/test_game_logic.py and I pasted my terminal's error message into a new chat session. It read the error message and saw errors in the tests generated. I pasted the message below: "I can see the real problem: tests 1-3 expect check_guess to return just an outcome string, but the current implementation returns a tuple (outcome, message)." Thus, I asked it to update the test_game_logic.py and rerun the tests again to verify that they all pass.
 
 ---
 

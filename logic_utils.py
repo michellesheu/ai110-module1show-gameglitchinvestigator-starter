@@ -5,6 +5,7 @@ def get_range_for_difficulty(difficulty: str):
 
 def parse_guess(raw: str):
     """
+    #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
     Parse user input into an int guess.
 
     Returns: (ok: bool, guess_int: int | None, error_message: str | None)
@@ -28,6 +29,7 @@ def parse_guess(raw: str):
 
 def check_guess(guess, secret):
     """
+    #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
     Compare guess to secret and return (outcome, message).
 
     outcome examples: "Win", "Too High", "Too Low"
