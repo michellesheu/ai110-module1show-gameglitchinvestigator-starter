@@ -1,4 +1,4 @@
-from logic_utils import check_guess, get_range_for_difficulty
+from logic_utils import check_guess, get_range_for_difficulty, parse_guess, update_score
 
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win
@@ -75,3 +75,93 @@ def test_difficulty_ranges_are_progressive():
 
     assert easy_range < normal_range, "Easy should have fewer numbers than Normal"
     assert normal_range < hard_range, "Normal should have fewer numbers than Hard"
+
+
+def test_parse_guess_valid_integer():
+    """Test that parse_guess correctly parses valid integer input."""
+    ok, guess, error = parse_guess("42")
+    assert ok is True
+    assert guess == 42
+    assert error is None
+
+
+def test_parse_guess_valid_float():
+    """Test that parse_guess converts valid float input to integer."""
+    ok, guess, error = parse_guess("42.7")
+    assert ok is True
+    assert guess == 42
+    assert error is None
+
+
+def test_parse_guess_empty_string():
+    """Test that parse_guess rejects empty string."""
+    ok, guess, error = parse_guess("")
+    assert ok is False
+    assert guess is None
+    assert error == "Enter a guess."
+
+
+def test_parse_guess_none_input():
+    """Test that parse_guess rejects None input."""
+    ok, guess, error = parse_guess(None)
+    assert ok is False
+    assert guess is None
+    assert error == "Enter a guess."
+
+
+def test_parse_guess_invalid_input():
+    """Test that parse_guess rejects non-numeric input."""
+    ok, guess, error = parse_guess("abc")
+    assert ok is False
+    assert guess is None
+    assert error == "That is not a number."
+
+
+def test_parse_guess_negative_number():
+    """Test that parse_guess accepts negative numbers."""
+    ok, guess, error = parse_guess("-15")
+    assert ok is True
+    assert guess == -15
+    assert error is None
+
+
+def test_update_score_win():
+    """Test score update when player wins on first attempt."""
+    new_score = update_score(0, "Win", 0)
+    # Points = 100 - 10 * (0 + 1) = 90
+    assert new_score == 90
+
+
+def test_update_score_win_later_attempt():
+    """Test score update when player wins on a later attempt."""
+    new_score = update_score(50, "Win", 4)
+    # Points = 100 - 10 * (4 + 1) = 50, so 50 + 50 = 100
+    assert new_score == 100
+
+
+def test_update_score_win_minimum_points():
+    """Test that win on very late attempt gives minimum 10 points."""
+    new_score = update_score(0, "Win", 15)
+    # Points = 100 - 10 * (15 + 1) = -60, but minimum is 10
+    assert new_score == 10
+
+
+def test_update_score_too_high_even_attempt():
+    """Test score bonus for correct hint on even attempt."""
+    new_score = update_score(100, "Too High", 2)
+    # Even attempt gains 5 points
+    assert new_score == 105
+
+
+def test_update_score_too_high_odd_attempt():
+    """Test score penalty for hint on odd attempt."""
+    new_score = update_score(100, "Too High", 1)
+    # Odd attempt loses 5 points
+    assert new_score == 95
+
+
+def test_update_score_too_low():
+    """Test score penalty for 'Too Low' hint."""
+    new_score = update_score(100, "Too Low", 0)
+    # Too Low always loses 5 points
+    assert new_score == 95
