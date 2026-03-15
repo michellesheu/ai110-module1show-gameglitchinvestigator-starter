@@ -1,5 +1,8 @@
 def get_range_for_difficulty(difficulty: str):
-    """Return (low, high) inclusive range for a given difficulty."""
+    """
+    #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
+    Return (low, high) inclusive range for a given difficulty.
+    """
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
@@ -58,5 +61,22 @@ def check_guess(guess, secret):
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    """
+    #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
+    Update score based on outcome and attempt number.
+    """
+    if outcome == "Win":
+        points = 100 - 10 * (attempt_number + 1)
+        if points < 10:
+            points = 10
+        return current_score + points
+
+    if outcome == "Too High":
+        if attempt_number % 2 == 0:
+            return current_score + 5
+        return current_score - 5
+
+    if outcome == "Too Low":
+        return current_score - 5
+
+    return current_score

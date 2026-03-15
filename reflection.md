@@ -28,16 +28,18 @@ I had an error running pytest after creating tests/test_game_logic.py and I past
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+I generated pytest cases and then verified myself through streamlit on the browser testing the game.
 - Describe at least one test you ran (manual or using pytest)
   and what it showed you about your code.
+  I used pytest to verify the get_range_for_difficulty function and it showed me how to verify each range's output and what the original bug was.
 - Did AI help you design or understand any tests? How?
-
+ AI helped me design the tests by generating them for me and telling me what they do and what they return.
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-
+Streamlit reruns happen automatically by looking at user interactions and triggers the entire script to rerun from the beginning. Session state is like the app's short-term memory for a specific user session.
 ---
 
 ## 5. Looking ahead: your developer habits
