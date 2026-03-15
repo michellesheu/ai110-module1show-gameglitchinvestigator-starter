@@ -46,5 +46,8 @@ Streamlit reruns happen automatically by looking at user interactions and trigge
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+  I want to start doing test-based verification more to check if the bugs are fixed.
 - What is one thing you would do differently next time you work with AI on a coding task?
+I would generate better prompts for the AI to understand the task and execute it better.
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+I think AI-generated code is fast and usually correct if you are specific with prompts but you still need to verify its fixes.

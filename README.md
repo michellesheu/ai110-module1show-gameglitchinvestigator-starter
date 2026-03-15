@@ -3,7 +3,7 @@
 ## 🚨 The Situation
 
 You asked an AI to build a simple "Number Guessing Game" using Streamlit.
-It wrote the code, ran away, and now the game is unplayable. 
+It wrote the code, ran away, and now the game is unplayable.
 
 - You can't win.
 - The hints lie to you.
@@ -25,13 +25,33 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- **Game Purpose:**
+   - Learn how to debug state management issues, logic errors, type coercion bugs, and configuration errors.
+   - Refactor game logic from the UI in `app.py` into `logic_utils.py` and test these changes.
+
+- **Bugs Found:**
+   - State management bug: the `new_game` function doesn't properly initialize or preserve the secret number across button clicks.
+   - `st.session_state.attempts` is reset to 0 instead of the secret being properly stored and maintained in `st.session_state.secret`.
+   - The `check_guess` function has the hints reversed.
+   - On even number attempts, the `secret` variable is cast to a string instead of staying as an integer.
+   - The difficulty settings have the wrong range.
+
+- **Fixes Applied:**
+   - The "New Game" button now correctly resets attempts to 1 and generates a new secret within the selected difficulty range.
+   - If `guess > secret`: returns "Too High" with message "📉 Go LOWER!" If `guess < secret`: returns "Too Low" with message "📈 Go HIGHER!"
+   - The `check_guess` function now handles type mismatches gracefully:
+      - Attempts numeric comparison first.
+      - If a `TypeError` occurs (when the secret was incorrectly cast to string on even attempts), it falls back to string comparison.
+      - This prevents the mixed-type comparison that was breaking hints.
+   - `get_range_for_difficulty` now returns:
+      - Easy: 1–20
+      - Normal: 1–100
+      - Hard: 1–200 (now genuinely harder—larger range than Normal).
+   - Refactored all game logic to `logic_utils.py`.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- ![screenshot.jpg] [Insert a screenshot of your fixed, winning game here]
 
 ## 🚀 Stretch Features
 
